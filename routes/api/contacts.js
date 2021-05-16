@@ -85,7 +85,7 @@ router.patch(
   validateUpdateStatusContact,
   async (req, res, next) => {
     try {
-      const contact = await contactsModel.updateContact(
+      const contact = await contactsModel.updateStatusContact(
         req.params.contactId,
         req.body
       );
@@ -99,7 +99,7 @@ router.patch(
       } else {
         return next({
           status: 404,
-          message: "Not Found",
+          message: "missing field favorite",
         });
       }
     } catch (error) {
