@@ -4,6 +4,7 @@ const Contacts = require("../../model/index");
 const {
   validateCreateContact,
   validateUpdateContact,
+  validateUpdateStatusContact,
 } = require("./validation");
 
 router.get("/", async (req, res, next) => {
@@ -78,5 +79,33 @@ router.patch("/:contactId", validateUpdateContact, async (req, res, next) => {
     next(error);
   }
 });
+
+router.patch(
+  "/:contactId/favorite",
+  validateUpdateStatusContact,
+  async (req, res, next) => {
+    try {
+      const contact = await contactsModel.updateContact(
+        req.params.contactId,
+        req.body
+      );
+
+      if (contact) {
+        return res.status(200).json({
+          status: "success",
+          code: 200,
+          data: { contact },
+        });
+      } else {
+        return next({
+          status: 404,
+          message: "Not Found",
+        });
+      }
+    } catch (error) {
+      next(error);
+    }
+  }
+);
 
 module.exports = router;
