@@ -1,4 +1,4 @@
-const USER = {
+const Subscription = {
   STARTER: "starter",
   PRO: "pro",
   BUSINES: "busines",
@@ -15,4 +15,4 @@ const HttpCode = {
   INTERNAL_SERVER_ERROR: 500,
 };
 
-module.exports = { USER, HttpCode };
+module.exports = { Subscription, HttpCode };

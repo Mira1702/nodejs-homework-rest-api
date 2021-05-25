@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-// const Contacts = require("../../../model/index");
+const guard = require("../../../helpers/guard");
 const cntrl = require("../../../controllers/contacts");
 const {
   validateCreateContact,
@@ -8,19 +8,27 @@ const {
   validateUpdateStatusContact,
 } = require("./validation");
 
-router.get("/", cntrl.getAll);
+router.get("/", guard, cntrl.getAll);
 
-router.get("/:contactId", cntrl.getById);
+router.get("/:contactId", guard, validateObjectId, cntrl.getById);
 
-router.post("/", validateCreateContact, cntrl.create);
+router.post("/", guard, validateCreateContact, cntrl.create);
 
-router.delete("/:contactId", cntrl.remove);
+router.delete("/:contactId", guard, validateObjectId, cntrl.remove);
 
-router.patch("/:contactId", validateUpdateContact, cntrl.update);
+router.patch(
+  "/:contactId",
+  guard,
+  validateUpdateContact,
+  validateObjectId,
+  cntrl.update
+);
 
 router.patch(
   "/:contactId/favorite",
+  guard,
   validateUpdateStatusContact,
+  validateObjectId,
   cntrl.updateFavourite
 );
 

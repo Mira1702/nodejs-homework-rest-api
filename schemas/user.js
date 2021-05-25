@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 const { Schema } = mongoose;
-const { USER } = requier("../helpers/constans");
-const bcrypt = requier("bcryptjs");
+const { Subscription } = require("../helpers/constans");
+const bcrypt = require("bcryptjs");
 const SALT_FACTOR = 6;
 
 const UserSchema = new Schema({
@@ -16,7 +16,7 @@ const UserSchema = new Schema({
   },
   subscription: {
     type: String,
-    enum: [USER.STARTER, USER.PRO, USER.BUSINESS],
+    enum: [Subscription.STARTER, Subscription.PRO, Subscription.BUSINESS],
     default: "starter",
   },
   token: {
@@ -26,10 +26,16 @@ const UserSchema = new Schema({
 });
 
 UserSchema.pre("save", async function (next) {
-  const salt = await bcrypt.genSalt(SALT_FACTOR);
-  this.password = await bcrypt.hash(this.passwodr, salt);
+  if (this.isModified("password")) {
+    const salt = await bcrypt.genSalt(SALT_FACTOR);
+    this.password = await bcrypt.hash(this.passwodr, salt);
+  }
   next();
 });
+
+UserSchema.method.validPassword = async function (password) {
+  return await bcrypt.compare(String(password), this.password);
+};
 
 const User = mongoose.model("user", UserSchema);
 
