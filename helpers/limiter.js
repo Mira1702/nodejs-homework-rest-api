@@ -1,5 +1,5 @@
 const rateLimit = require("express-rate-limit");
-const { HttpCode } = require("./constants");
+const { HttpCode } = require("./constans");
 
 const limiter = rateLimit({
   windowMs: 15 * 60 * 1000, // 15 minutes

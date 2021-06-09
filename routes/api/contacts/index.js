@@ -6,6 +6,7 @@ const {
   validateCreateContact,
   validateUpdateContact,
   validateUpdateStatusContact,
+  validateObjectId,
 } = require("./validation");
 
 router.get("/", guard, cntrl.getAll);

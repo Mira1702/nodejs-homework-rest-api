@@ -5,7 +5,7 @@ const boolParser = require("express-query-boolean");
 const helmet = require("helmet");
 const limiter = require("./helpers/limiter");
 
-const { HttpCode } = require("./helpers/constants");
+const { HttpCode } = require("./helpers/constans");
 
 const contactsRouter = require("./routes/api/contacts/index");
 const usersRouter = require("./routes/api/users/index");
