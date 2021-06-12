@@ -13,5 +13,10 @@ router.post("/login", validateLogin, cntrl.login);
 router.post("/logout", guard, cntrl.logout);
 router.get("/current", guard, ctrl.current);
 router.patch("/", guard, validateStatusSubscription, ctrl.subscription);
+router.patch(
+  "/avatars",
+  [guard, upload.single("avatarURL")],
+  controllers.avatars
+);
 
 module.exports = router;

@@ -1,7 +1,7 @@
 const Joi = require("joi");
 const mongoose = require("mongoose");
 
-const { HttpCode } = require("../../../helpers/constants");
+const { HttpCode } = require("../../../helpers/constans");
 
 const schemaCreateContact = Joi.object({
   name: Joi.string().alphanum().min(3).max(30).required(),
