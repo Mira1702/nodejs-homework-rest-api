@@ -3,6 +3,10 @@ require("dotenv").config();
 const Users = require("../model/users");
 const { HttpCode } = require("../helpers/constans");
 const JWT_SECRET_KEY = process.env.JWT_SECRET_KEY;
+const AVATARS_OF_USERS = process.env.AVATARS_OF_USERS;
+const LocalUploadAvatar = require("../services/avatars-local");
+const EmailService = require("../services/email");
+const CreateSenderSendgrid = require("../services/email-sender");
 
 const signup = async (req, res, next) => {
   try {
